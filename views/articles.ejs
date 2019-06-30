@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Articles Page</title>
+    <style>
+        * {
+            text-align: center;
+        }
+    
+        .head {
+            background-color: #37474F;
+            padding: 10px;
+            padding-right: 20px;
+            padding-left: 20px;
+            text-align: center;
+            font-size: 35px;
+            color: white;
+        }
+    
+        .foot {
+            background-color: #37474F;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .articles {
+            flex: 1;
+            border: 1px solid  rgb(6, 106, 117);
+            padding: 20px;
+            margin: 10px;
+            box-shadow:
+                0pt 2px 5px rgba(105, 108, 109, 0.7),
+                0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+            border-radius: 5px;
+            background: rgb(247, 247, 247);
+        }
+
+        #wrapper {
+            min-height: 1300vh;
+        }
+
+        #wrapper h1 {
+            font-size: 48px;
+            color: rgb(6, 106, 117);
+            font-family: 'FranchiseRegular', 'Arial Narrow', Arial, sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
+
+         #wrapper h1 {
+            background:
+                -webkit-repeating-linear-gradient(-45deg,
+                rgb(18, 83, 93),
+                rgb(18, 83, 93) 20px,
+                rgb(64, 111, 118) 20px,
+                rgb(64, 111, 118) 40px,
+                rgb(18, 83, 93) 40px);
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+        }
+
+        ::-webkit-input-placeholder {
+            color: rgb(190, 188, 188);
+        }
+
+        #wrapper input:not([type="checkbox"]) {
+            width: 92%;
+            margin-top: 4px;
+            padding: 10px 5px 10px 5px;
+            border: 1px solid rgb(178, 178, 178);
+            box-sizing: content-box;
+            border-radius: 3px;
+            box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+        }
+
+        #articlesRes {
+            position: absolute;
+            top: 0;
+            margin: 4% 6%;
+        }
+
+        #articlesRes {
+            z-index: 22;
+        }
+
+        #wrapper p.button input { 
+            width: 10%;
+            cursor: pointer;
+            background: rgb(61, 157, 179);
+            font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+            color: #fff;
+            font-size: 18px;
+            border: 1px solid rgb(28, 108, 122);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+            box-shadow:
+                0px 1px 6px 4px rgba(0, 0, 0, 0.07) inset,
+                0px 0px 0px 3px rgb(254, 254, 254),
+                0px 5px 3px 3px rgb(210, 210, 210);
+
+        }
+
+        #wrapper p.button input:hover {
+            background: rgb(74, 179, 198);
+        }
+
+        .articlesContent {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-evenly;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="head">
+        <% include ./partials/header %>
+    </div>
+    <div id="wrapper">
+        <div id="articlesRes">
+            <h1>News Results </h1>
+            <div class="container">
+                <%for(let i = 0; i < data.length; i++) {%>
+                    <div class="articles">
+                        <form action="/articles" method="POST">
+                            <h3><%= data[i].title%></h3>
+                            <p><%= data[i].author%></p>
+                            <div class="articlesContent">
+                                <p><%= data[i].description%></p>
+                                <img src="<%= data[i].urlToImage%>" width="304" height="228"></p>
+                                <p><%= data[i].content%></p>
+                            </div>
+                            <p class="save button">
+                                <form action="/saveArticles" method="POST">
+                                    <input type="submit" value="Save Article" />
+                                </form>
+                            </p>
+                        </form>
+                    </div>   
+                <%}%>
+            </div>
+        </div>
+    </div>
+    <div class="foot">
+        <% include ./partials/footer %>
+    </div>
+</body>
+</html>
